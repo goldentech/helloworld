@@ -2,9 +2,11 @@
 	"resources": [
 		
 		{"name": "bgImage","type": "image","url": "assets/bg.jpg"},
+        {"name": "bgGirl","type": "image","url": "assets/bgGirl.png"},
         {"name": "bghouse1","type": "image","url": "assets/house1.png"},
         {"name": "bghouse2","type": "image","url": "assets/house2.png"},
-		
+		{"name": "sword","type": "sound","url": "assets/sword3.m4a"},
+        {"name": "sword2","type": "sound","url": "assets/sword.m4a"},
 		{
 			"name": "egretIcon",
 			"type": "image",
@@ -15,7 +17,7 @@
 	"groups": [
 		{
 			"name": "preload",
-			"keys": "bgImage,bghouse1,bghouse2,egretIcon"
+			"keys": "bgImage,bgGirl,bghouse1,bghouse2,sword,sword2,egretIcon"
 		}
 	]
 }

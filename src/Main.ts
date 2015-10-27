@@ -1,4 +1,5 @@
 
+
 class Main extends egret.DisplayObjectContainer {
 
     /**
@@ -7,11 +8,12 @@ class Main extends egret.DisplayObjectContainer {
      */
     private loadingView: LoadingUI;
     
-    private newGameCount = "1";
+    private stageNum = 1;
 
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
+        
     }
 
     private onAddToStage(event: egret.Event) {
@@ -83,102 +85,34 @@ class Main extends egret.DisplayObjectContainer {
     private createGameScene(): void {
         
         
-        var bg: egret.Shape = new egret.Shape;
-        bg.graphics.beginFill(0x336699);
-        bg.graphics.drawRect(0,0,this.stage.stageWidth,this.stage.stageHeight);
-        bg.graphics.endFill();
-        this.addChild(bg);
+//        var bg: egret.Shape = new egret.Shape;
+//        bg.graphics.beginFill(0x336699);
+//        bg.graphics.drawRect(0,0,this.stage.stageWidth,this.stage.stageHeight);
+//        bg.graphics.endFill();
+//        this.addChild(bg);
         
+        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
+        newSim.name = "sim" + this.stageNum;
+        this.addChild(newSim);
         
+        newSim.addEventListener(egret.Event.ADDED_TO_STAGE,this.changeSim,this);
         
-        var house1:egret.Bitmap = new egret.Bitmap(RES.getRes("bghouse2"))
-        house1.x = 630;
-        house1.y = 160;
-        this.addChild(house1);
-        
-        var house2:egret.Bitmap = new egret.Bitmap(RES.getRes("bghouse2"))
-        house2.x = 0;
-        house2.y = 190;
-        this.addChild(house2);
-        
-        var house3:egret.Bitmap = new egret.Bitmap(RES.getRes("bghouse2"))
-        house3.x = 300;
-        house3.y = 175;
-        this.addChild(house3);
-        
-        
-        var txPower: egret.TextField = new egret.TextField;
-        txPower.text = "行动力：" + (7-parseInt(this.newGameCount)).toString() + "/6";
-                
-        txPower.size = 32;
-        txPower.x = 60;
-        txPower.y = 600;
-        txPower.width = this.stage.stageWidth - 120;
-                
-        
-                
-        this.addChild(txPower);
-        
-        
-        var tx: egret.TextField = new egret.TextField;
-        tx.text = "新的开始";
-        
-        
-        
-        
-        tx.size = 32;
-        tx.x = 60;
-        tx.y = 120;
-        tx.width = this.stage.stageWidth - 120;
-        
-        tx.touchEnabled = true;
-        
-        var i = 1;
-        
-        tx.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,this);
-        
-        this.addChild(tx);
-        
-        
-        
-        
-        
-        
+        //this.removeChild(this.getChildByName("sim2"));
+
         
         
     }
     
-    private  f(x:string):string
+    
+    private changeSim(evt:egret.Event):void
     {
-        switch(x)
-        {
-            case "1":return "清晨的阳光透过绿竹编制的窗帘射入屋子";
-            case "2":return "我用力摇头，试图把自己从昨夜噩梦的影响中驱散";
-            case "3":return "突出胸口的一股浊气，我习惯性的把目光转向北面";
-            case "4":return "那里挂着我不想看见到，却又每天都不停观看的东西";
-            case "5":return "元历三百一十三年八月十二日，鲜红的字迹想血一样挂在日历上";
-            case "6":return "还有，最后三天";
-            case "7":return " ";
-        }
-        return " ";
+        alert("call added to stage");
     }
     
     
-    private touchHandler(evt:egret.TouchEvent):void
-    {
-        var tx: egret.TextField = evt.currentTarget;
-        
-        tx.textColor = 0x00ff00;
-        
-        
-        tx.text = this.f(this.newGameCount);
-        if((parseInt(this.newGameCount)) <7)
-        {
-            this.newGameCount = (parseInt(this.newGameCount) + 1).toString();
-        }
-        
-        
-    }
+    
+    
+    
     
     
 }

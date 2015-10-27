@@ -1,4 +1,10 @@
 [
+	"DataLoader.ts",
+	"Story.ts",
+	"LoadBackGround.ts",
+	"LoadOneBuild.ts",
+	"LoadStoryBar.ts",
+	"CreateSim.ts",
 	"LoadingUI.ts",
 	"Main.ts"
 ]
