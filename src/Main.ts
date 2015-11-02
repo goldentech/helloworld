@@ -14,6 +14,7 @@ class Main extends egret.DisplayObjectContainer {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
         
+        
     }
 
     private onAddToStage(event: egret.Event) {
@@ -84,31 +85,20 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene(): void {
         
-        
-//        var bg: egret.Shape = new egret.Shape;
-//        bg.graphics.beginFill(0x336699);
-//        bg.graphics.drawRect(0,0,this.stage.stageWidth,this.stage.stageHeight);
-//        bg.graphics.endFill();
-//        this.addChild(bg);
+
         
         var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
         newSim.name = "sim" + this.stageNum;
         this.addChild(newSim);
         
-        newSim.addEventListener(egret.Event.ADDED_TO_STAGE,this.changeSim,this);
-        
-        //this.removeChild(this.getChildByName("sim2"));
+      
 
         
         
     }
     
     
-    private changeSim(evt:egret.Event):void
-    {
-        alert("call added to stage");
-    }
-    
+
     
     
     

@@ -2,6 +2,7 @@ var CreateSim = (function (_super) {
     __extends(CreateSim, _super);
     function CreateSim(simType, simWidth, simHeight) {
         _super.call(this);
+        this.episode = 0;
         this.simWidth = simWidth;
         this.simHeight = simHeight;
         this.sound = RES.getRes("sword2");
@@ -25,24 +26,6 @@ var CreateSim = (function (_super) {
         bg.name = "startBg";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startGame, this);
         this.addChild(bg);
-        //                var tx: egret.TextField = new egret.TextField;
-        //                tx.text = "新的开始";
-        //                        
-        //                        
-        //                tx.textColor = 0x00ff00;
-        //                        
-        //                tx.size = 100;
-        //                tx.x = 60;
-        //                tx.y = 120;
-        //                tx.width = simWidth - 120;
-        //                        
-        //                tx.touchEnabled = true;
-        //                        
-        //      
-        //                        
-        //                tx.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startGame,this);
-        //                        
-        //                this.addChild(tx);
     };
     __egretProto__.unloadStartSim = function () {
         this.sound.stop();
@@ -54,39 +37,80 @@ var CreateSim = (function (_super) {
         //this.mapSim(this.simWidth,this.simHeight);
     };
     __egretProto__.mapSim = function (simWidth, simHeight) {
-        //        var bg: egret.Bitmap = new egret.Bitmap(RES.getRes("bgImage"));
-        //        bg.x = 0; bg.y = 0; bg.width = simWidth; bg.height = simHeight; 
-        //               
-        //        this.addChild(bg);
-        var bg = new LoadBackGround(simWidth, simHeight, "bgImage", false);
-        this.addChild(bg);
-        var storyBar = new LoadStroyBar(60, 120, 1, 0);
-        this.addChild(storyBar);
-        var house1 = new LoadOneBuild(1, 50, 275, "bghouse2", "练武场");
-        this.addChild(house1);
-        var house2 = new LoadOneBuild(2, 250, 275, "bghouse2", "书房");
-        this.addChild(house2);
-        var house3 = new LoadOneBuild(3, 450, 275, "bghouse2", "酒馆");
-        this.addChild(house3);
-        var house4 = new LoadOneBuild(4, 50, 475, "bghouse2", "小巷");
-        this.addChild(house4);
-        var house5 = new LoadOneBuild(5, 250, 475, "bghouse2", "公正峰");
-        this.addChild(house5);
-        var house6 = new LoadOneBuild(6, 450, 475, "bghouse2", "医馆");
-        this.addChild(house6);
+        var mapSim = new LoadMapSim(simWidth, simHeight);
+        mapSim.name = "mapSim1";
+        mapSim.touchEnabled = true;
+        mapSim.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchMapSim, this);
+        this.addChild(mapSim);
+    };
+    __egretProto__.unloadMapSim = function () {
+        this.removeChild(this.getChildByName("mapSim1"));
     };
     __egretProto__.singleSim = function (simWidth, simHeight) {
         var bg = new LoadBackGround(simWidth, simHeight, "bghouse1", false);
         bg.touchEnabled = true;
-        bg.name = "startMap";
+        bg.name = "startMap1";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startMap, this);
         this.addChild(bg);
         var storyBar = new LoadStroyBar(60, 420, 0, 0);
         storyBar.name = "storyBar1";
         this.addChild(storyBar);
     };
+    __egretProto__.unloadSingleSim = function () {
+        this.removeChild(this.getChildByName("startMap1"));
+        this.removeChild(this.getChildByName("storyBar1"));
+    };
+    __egretProto__.detailSim = function (simWidth, simHeight, touchHouse) {
+        //        this.unloadMapSim();
+        this.sound.stop();
+        var bg = new LoadBackGround(simWidth, simHeight, "bghouse1", false);
+        bg.touchEnabled = true;
+        bg.name = "startMap2";
+        bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startMap, this);
+        this.addChild(bg);
+        if (this.episode < 13) {
+            var storyBar = new LoadStroyBar(60, 420, 1, this.episode);
+            storyBar.name = "storyBar2";
+            if ("h" + storyBar.sectionLoc.toString() == touchHouse) {
+                storyBar.visible = true;
+                this.episode++;
+            }
+            else {
+                storyBar.visible = false;
+            }
+            this.addChild(storyBar);
+        }
+        var returnButton = new LoadOneBuild(6, 450, 575, "bghouse2", "离开");
+        returnButton.name = "returnMap";
+        returnButton.touchEnabled = true;
+        returnButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this.returnToMap, this);
+        this.addChild(returnButton);
+    };
+    __egretProto__.unLoadDetailSim = function () {
+        this.removeChild(this.getChildByName("startMap2"));
+        this.removeChild(this.getChildByName("storyBar2"));
+        this.removeChild(this.getChildByName("returnMap"));
+    };
+    // return to main map sim from  detail sim
+    __egretProto__.returnToMap = function (evt) {
+        this.unLoadDetailSim();
+        this.mapSim(this.simWidth, this.simHeight);
+    };
+    //touchHandler, when touch anywhere on main map sim
+    __egretProto__.touchMapSim = function (evt) {
+        var loadMapSim = evt.currentTarget;
+        // alert(loadMapSim.touchHouse);
+        if (loadMapSim.touchHouse != "h0") {
+            this.unloadMapSim();
+            this.detailSim(this.simWidth, this.simHeight, loadMapSim.touchHouse);
+        }
+    };
+    //touchHandler, when navigate from pre-story page to main map
     __egretProto__.startMap = function (evt) {
         if (this.getChildByName("storyBar1").storyEnd) {
+            this.unloadSingleSim();
+            this.sound = RES.getRes("sword");
+            this.sound.play(true);
             this.mapSim(this.simWidth, this.simHeight);
         }
     };

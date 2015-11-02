@@ -5,11 +5,11 @@ class LoadStroyBar extends egret.Sprite {
     public constructor( x, y ,sectionCatagory,sectionNum) {
         super();
         
-        this.newGameCount = 1;
+        this.newGameCount = 0;
         this.storyEnd = false;
         
         this.dataElement = new DataLoader(sectionCatagory,sectionNum);
-        
+        this.sectionLoc = this.dataElement.sectionLoc;
         this.createStoryBar(x,y);
     }
 
@@ -21,6 +21,8 @@ class LoadStroyBar extends egret.Sprite {
     public storyEnd;
     
     private dataElement: DataLoader; 
+    
+    public sectionLoc:number;
     
     private createStoryBar(x,y):void {
         
@@ -38,6 +40,8 @@ class LoadStroyBar extends egret.Sprite {
         this.storyLine.x = x;//60
         this.storyLine.y = y;//120
         this.storyLine.width = 520;
+        
+        
                         
         this.storyLine.touchEnabled = true;
                         
@@ -67,7 +71,7 @@ class LoadStroyBar extends egret.Sprite {
         else
         {
             
-            var sound: egret.Sound = RES.getRes("sword"); sound.play(true);
+            //var sound: egret.Sound = RES.getRes("sword"); sound.play(true);
             this.storyEnd = true;
         }
 //        var temp: egret.TextField = new egret.TextField;

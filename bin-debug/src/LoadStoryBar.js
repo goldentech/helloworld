@@ -2,9 +2,10 @@ var LoadStroyBar = (function (_super) {
     __extends(LoadStroyBar, _super);
     function LoadStroyBar(x, y, sectionCatagory, sectionNum) {
         _super.call(this);
-        this.newGameCount = 1;
+        this.newGameCount = 0;
         this.storyEnd = false;
         this.dataElement = new DataLoader(sectionCatagory, sectionNum);
+        this.sectionLoc = this.dataElement.sectionLoc;
         this.createStoryBar(x, y);
     }
     var __egretProto__ = LoadStroyBar.prototype;
@@ -28,8 +29,7 @@ var LoadStroyBar = (function (_super) {
             this.newGameCount = this.newGameCount + 1;
         }
         else {
-            var sound = RES.getRes("sword");
-            sound.play(true);
+            //var sound: egret.Sound = RES.getRes("sword"); sound.play(true);
             this.storyEnd = true;
         }
         //        var temp: egret.TextField = new egret.TextField;

@@ -16,6 +16,8 @@ class CreateSim extends egret.Sprite {
                 break;
             case 3: this.singleSim(simWidth,simHeight);
                 break;
+//            case 4: this.detailSim(simWidth,simHeight,touchHouse);
+//                break;
                 
         }
     }
@@ -24,6 +26,8 @@ class CreateSim extends egret.Sprite {
     private simHeight;
     private house:egret.Bitmap;
     private houseName:egret.TextField;
+    
+    private episode = 0;
     
     private sound: egret.Sound; 
     
@@ -37,27 +41,6 @@ class CreateSim extends egret.Sprite {
         bg.touchEnabled = true; bg.name = "startBg";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startGame,this);
         this.addChild(bg);
-        
-//                var tx: egret.TextField = new egret.TextField;
-//                tx.text = "新的开始";
-//                        
-//                        
-//                tx.textColor = 0x00ff00;
-//                        
-//                tx.size = 100;
-//                tx.x = 60;
-//                tx.y = 120;
-//                tx.width = simWidth - 120;
-//                        
-//                tx.touchEnabled = true;
-//                        
-//      
-//                        
-//                tx.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startGame,this);
-//                        
-//                this.addChild(tx);
-         
-        
     }
     
     private unloadStartSim()
@@ -78,46 +61,23 @@ class CreateSim extends egret.Sprite {
     
     private mapSim(simWidth,simHeight)
     {
-//        var bg: egret.Bitmap = new egret.Bitmap(RES.getRes("bgImage"));
-//        bg.x = 0; bg.y = 0; bg.width = simWidth; bg.height = simHeight; 
-//               
-//        this.addChild(bg);
+        var mapSim: LoadMapSim = new LoadMapSim(simWidth,simHeight);
+        mapSim.name = "mapSim1";
+        mapSim.touchEnabled = true;
+        mapSim.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchMapSim,this);
+        this.addChild(mapSim);
         
-        var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bgImage",false);
-        this.addChild(bg);
-           
-        var storyBar: LoadStroyBar = new LoadStroyBar(60,120,1,0);
-        this.addChild(storyBar);
-        
-        
-        var house1: LoadOneBuild = new LoadOneBuild(1, 50, 275 ,"bghouse2","练武场");
-        this.addChild(house1);
-        var house2: LoadOneBuild = new LoadOneBuild(2, 250, 275 ,"bghouse2","书房");
-        this.addChild(house2);
-        var house3: LoadOneBuild = new LoadOneBuild(3, 450, 275 ,"bghouse2","酒馆");
-        this.addChild(house3);
-        var house4: LoadOneBuild = new LoadOneBuild(4, 50, 475 ,"bghouse2","小巷");
-        this.addChild(house4);
-        var house5: LoadOneBuild = new LoadOneBuild(5, 250, 475 ,"bghouse2","公正峰");
-        this.addChild(house5);
-        var house6: LoadOneBuild = new LoadOneBuild(6, 450, 475 ,"bghouse2","医馆");
-        this.addChild(house6);
-                
-                
-        
-                
-               
-               
-                
-                
-             
-        
+    }
+    
+    private unloadMapSim()
+    {
+        this.removeChild(this.getChildByName("mapSim1"));
     }
     
     private singleSim(simWidth,simHeight)
     {
         var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bghouse1",false);
-        bg.touchEnabled = true; bg.name = "startMap";
+        bg.touchEnabled = true; bg.name = "startMap1";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startMap,this);
         
         this.addChild(bg);
@@ -127,37 +87,96 @@ class CreateSim extends egret.Sprite {
         this.addChild(storyBar);
     }
     
+    private unloadSingleSim()
+    {
+        
+        this.removeChild(this.getChildByName("startMap1"));
+        this.removeChild(this.getChildByName("storyBar1"));
+        
+    }
+    
+    
+    private detailSim(simWidth,simHeight,touchHouse)
+    {
+       
+//        this.unloadMapSim();
+        
+        this.sound.stop();
+            
+        var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bghouse1",false);
+        bg.touchEnabled = true; bg.name = "startMap2";
+        bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startMap,this);
+                
+        this.addChild(bg);
+        if(this.episode<13)
+        {
+            var storyBar: LoadStroyBar = new LoadStroyBar(60,420,1,this.episode);
+            
+            storyBar.name = "storyBar2";
+          
+            
+            if("h" + storyBar.sectionLoc.toString() == touchHouse) {
+                storyBar.visible = true;
+                this.episode++;
+            }
+            else
+            {
+                storyBar.visible = false;
+            }
+            this.addChild(storyBar);
+        }
+        
+        var returnButton: LoadOneBuild = new LoadOneBuild(6, 450, 575 ,"bghouse2","离开");
+        returnButton.name = "returnMap";
+        returnButton.touchEnabled = true;
+        returnButton.addEventListener(egret.TouchEvent.TOUCH_TAP,this.returnToMap,this);
+        this.addChild(returnButton);
+        
+    }
+        
+    private unLoadDetailSim()
+    {
+       
+        this.removeChild(this.getChildByName("startMap2"));
+      
+        this.removeChild(this.getChildByName("storyBar2"));
+        this.removeChild(this.getChildByName("returnMap"));
+        
+    }
+    
+    
+    // return to main map sim from  detail sim
+    private returnToMap(evt: egret.TouchEvent)
+    {
+        this.unLoadDetailSim();
+        this.mapSim(this.simWidth,this.simHeight);
+    }
+    //touchHandler, when touch anywhere on main map sim
+    private touchMapSim(evt: egret.TouchEvent)
+    {
+        var loadMapSim: LoadMapSim = evt.currentTarget;
+       // alert(loadMapSim.touchHouse);
+        if(loadMapSim.touchHouse!= "h0")
+        {
+            this.unloadMapSim();
+            this.detailSim(this.simWidth,this.simHeight,loadMapSim.touchHouse);
+        }
+        
+        
+        
+    }
+    //touchHandler, when navigate from pre-story page to main map
     private startMap(evt: egret.TouchEvent): void {
          
         if((<LoadStroyBar>this.getChildByName("storyBar1")).storyEnd)
         {
+            this.unloadSingleSim();
+            this.sound = RES.getRes("sword"); this.sound.play(true);
             this.mapSim(this.simWidth,this.simHeight);
         }
     }
     
     
-//    private touchHandler(evt:egret.TouchEvent):void
-//    {
-//        var tx: egret.TextField = evt.currentTarget;
-//                
-//        tx.textColor = 0x00ff00;
-//                
-//        var dataElement: DataLoader = new DataLoader(0,0);
-//                
-//        var story1: Story = new Story(dataElement.sectionContent);
-//                
-//        tx.text = story1.getLineByIndex(parseInt(this.newGameCount) );
-//        if((parseInt(this.newGameCount)) <7)
-//        {
-//            this.newGameCount = (parseInt(this.newGameCount) + 1).toString();
-//        }
-//        if(parseInt(this.newGameCount) > 6 )
-//        {
-//            var sound: egret.Sound = RES.getRes("sword"); sound.play(true);
-//        }
-//        var temp: egret.TextField = new egret.TextField;
-//        temp =<egret.TextField> this.getChildByName("app1");
-//        temp.text = "行动力：" + (7-parseInt(this.newGameCount)).toString() + "/6";
-//    }
+
     
 }

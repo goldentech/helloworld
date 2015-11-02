@@ -65,19 +65,9 @@ var Main = (function (_super) {
      * Create a game scene
      */
     __egretProto__.createGameScene = function () {
-        //        var bg: egret.Shape = new egret.Shape;
-        //        bg.graphics.beginFill(0x336699);
-        //        bg.graphics.drawRect(0,0,this.stage.stageWidth,this.stage.stageHeight);
-        //        bg.graphics.endFill();
-        //        this.addChild(bg);
         var newSim = new CreateSim(this.stageNum, this.stage.stageWidth, this.stage.stageHeight);
         newSim.name = "sim" + this.stageNum;
         this.addChild(newSim);
-        newSim.addEventListener(egret.Event.ADDED_TO_STAGE, this.changeSim, this);
-        //this.removeChild(this.getChildByName("sim2"));
-    };
-    __egretProto__.changeSim = function (evt) {
-        alert("call added to stage");
     };
     return Main;
 })(egret.DisplayObjectContainer);

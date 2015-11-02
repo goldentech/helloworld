@@ -18,7 +18,10 @@ class LoadOneBuild extends egret.Sprite {
         
         this.house = new egret.Bitmap(RES.getRes(sourceName));
         this.house.x = x; this.house.y = y; this.house.scaleX = 0.5; this.house.scaleY = 0.5; this.house.name = "house"+position;
-        this.house.touchEnabled;
+        
+        this.house.touchEnabled = true;
+        this.house.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,this);
+        
         this.addChild(this.house);
         
         
@@ -26,6 +29,16 @@ class LoadOneBuild extends egret.Sprite {
         this.houseName.text = buildName; this.houseName.x = x + 30; this.houseName.y = y + 125; this.houseName.name = "houseName"+position;
         this.addChild(this.houseName);
     }
+    
+    private touchHandler(evt:egret.TouchEvent):void
+    {
+       
+                                
+                
+       
+    }
+    
+    
 
 
 }

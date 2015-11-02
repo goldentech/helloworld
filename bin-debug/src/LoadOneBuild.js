@@ -12,7 +12,8 @@ var LoadOneBuild = (function (_super) {
         this.house.scaleX = 0.5;
         this.house.scaleY = 0.5;
         this.house.name = "house" + position;
-        this.house.touchEnabled;
+        this.house.touchEnabled = true;
+        this.house.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this);
         this.addChild(this.house);
         this.houseName = new egret.TextField;
         this.houseName.text = buildName;
@@ -20,6 +21,8 @@ var LoadOneBuild = (function (_super) {
         this.houseName.y = y + 125;
         this.houseName.name = "houseName" + position;
         this.addChild(this.houseName);
+    };
+    __egretProto__.touchHandler = function (evt) {
     };
     return LoadOneBuild;
 })(egret.Sprite);
