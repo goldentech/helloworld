@@ -1,5 +1,3 @@
-
-
 class Main extends egret.DisplayObjectContainer {
 
     /**
@@ -7,14 +5,10 @@ class Main extends egret.DisplayObjectContainer {
      * Process interface loading
      */
     private loadingView: LoadingUI;
-    
-    private stageNum = 1;
 
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
-        
-        
     }
 
     private onAddToStage(event: egret.Event) {
@@ -26,7 +20,7 @@ class Main extends egret.DisplayObjectContainer {
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
-        RES.loadConfig("resource/resource.json","resource/");
+        RES.loadConfig("resource/default.res.json","resource/");
     }
 
     /**
@@ -77,7 +71,10 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    private textfield: egret.TextField;
+    private socket;
+    private txt:egret.TextField;
+    
+    private stageNum = 1;
 
     /**
      * 创建游戏场景
@@ -85,24 +82,31 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene(): void {
         
-
+//        var chat = new ChatSocket(this.stage.stageWidth,this.stage.stageHeight);
+//        this.socket = chat.socket;
+//        
+//        
+//        this.stage.addChild(chat);
         
-        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
-        newSim.name = "sim" + this.stageNum;
-        this.addChild(newSim);
+//        var register = new NewPlayer(this.stage.stageWidth,this.stage.stageHeight);
+//        this.stage.addChild(register);
         
-      
-
+        
+        var fightScene = new FightV1(this.stage.stageWidth,this.stage.stageHeight);
+        this.stage.addChild(fightScene);
+//        egret.log("123");
+//        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
+//        newSim.name = "sim" + this.stageNum;
+//        this.stage.addChild(newSim);
+        
+        
+        
+        
+        
         
         
     }
     
-    
 
-    
-    
-    
-    
-    
-    
+   
 }

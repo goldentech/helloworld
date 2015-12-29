@@ -27,7 +27,11 @@ class LoadStroyBar extends egret.Sprite {
     private createStoryBar(x,y):void {
         
         
-       
+        var bg: LoadBackGround = new LoadBackGround(640,1036,"bghouse1",false);
+        bg.touchEnabled = true; bg.name = "startMap1";
+        bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,this);
+                        
+        this.addChild(bg);
         
         
         this.storyLine= new egret.TextField;
@@ -54,7 +58,7 @@ class LoadStroyBar extends egret.Sprite {
     
     private touchHandler(evt:egret.TouchEvent):void
     {
-        var tx: egret.TextField = evt.currentTarget;
+        var tx: egret.TextField = this.storyLine;
                         
         tx.textColor = 0x00ff00;
                         

@@ -2,6 +2,17 @@
 
 class CreateSim extends egret.Sprite {
 
+    
+    private simWidth;
+    private simHeight;
+    private house: egret.Bitmap;
+    private houseName: egret.TextField;
+
+    private episode = 0;
+
+    private sound: egret.Sound;
+    private soundChannel: egret.SoundChannel;
+    
     public constructor(simType,simWidth,simHeight) {
         super();
         
@@ -22,20 +33,14 @@ class CreateSim extends egret.Sprite {
         }
     }
 
-    private simWidth;
-    private simHeight;
-    private house:egret.Bitmap;
-    private houseName:egret.TextField;
     
-    private episode = 0;
-    
-    private sound: egret.Sound; 
     
     
     private startSim(simWidth,simHeight)
     {
-         this.sound.play(true);   
-        
+        // this.sound = RES.getRes("sword2"); 
+         this.soundChannel= this.sound.play();   
+         
         
         var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bgGirl",false);
         bg.touchEnabled = true; bg.name = "startBg";
@@ -45,7 +50,7 @@ class CreateSim extends egret.Sprite {
     
     private unloadStartSim()
     {
-        this.sound.stop(); 
+        this.soundChannel.stop(); 
         this.removeChild(this.getChildByName("startBg"));
     }
     
@@ -76,21 +81,18 @@ class CreateSim extends egret.Sprite {
     
     private singleSim(simWidth,simHeight)
     {
-        var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bghouse1",false);
-        bg.touchEnabled = true; bg.name = "startMap1";
-        bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startMap,this);
         
-        this.addChild(bg);
                    
         var storyBar: LoadStroyBar = new LoadStroyBar(60,420,0,0);
         storyBar.name = "storyBar1";
+        storyBar.touchEnabled = true; 
+        storyBar.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startMap,this);
         this.addChild(storyBar);
     }
     
     private unloadSingleSim()
     {
         
-        this.removeChild(this.getChildByName("startMap1"));
         this.removeChild(this.getChildByName("storyBar1"));
         
     }
@@ -101,13 +103,9 @@ class CreateSim extends egret.Sprite {
        
 //        this.unloadMapSim();
         
-        this.sound.stop();
+        this.soundChannel.stop();
             
-        var bg: LoadBackGround = new LoadBackGround(simWidth,simHeight,"bghouse1",false);
-        bg.touchEnabled = true; bg.name = "startMap2";
-        bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.startMap,this);
-                
-        this.addChild(bg);
+        
         if(this.episode<13)
         {
             var storyBar: LoadStroyBar = new LoadStroyBar(60,420,1,this.episode);
@@ -122,6 +120,11 @@ class CreateSim extends egret.Sprite {
             else
             {
                 storyBar.visible = false;
+                var bg: LoadBackGround = new LoadBackGround(640,1036,"bghouse1",false);
+                bg.touchEnabled = true; bg.name = "startMap2";
+            
+                                        
+                this.addChild(bg);
             }
             this.addChild(storyBar);
         }
@@ -137,7 +140,7 @@ class CreateSim extends egret.Sprite {
     private unLoadDetailSim()
     {
        
-        this.removeChild(this.getChildByName("startMap2"));
+        
       
         this.removeChild(this.getChildByName("storyBar2"));
         this.removeChild(this.getChildByName("returnMap"));
@@ -167,11 +170,12 @@ class CreateSim extends egret.Sprite {
     }
     //touchHandler, when navigate from pre-story page to main map
     private startMap(evt: egret.TouchEvent): void {
-         
+      
         if((<LoadStroyBar>this.getChildByName("storyBar1")).storyEnd)
         {
             this.unloadSingleSim();
-            this.sound = RES.getRes("sword"); this.sound.play(true);
+            this.sound = RES.getRes("sword"); 
+            this.soundChannel = this.sound.play(0,1);
             this.mapSim(this.simWidth,this.simHeight);
         }
     }

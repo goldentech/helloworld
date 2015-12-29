@@ -1,0 +1,43 @@
+{
+	"resources": [
+		{
+			"name": "bgImage",
+			"type": "image",
+			"url": "assets/bg.png"
+		},
+        {
+			"name": "sword",
+			"type": "image",
+			"url": "assets/sword.png"
+		},
+        {
+			"name": "monster",
+			"type": "image",
+			"url": "assets/monster.png"
+		},
+		{
+			"name": "egretIcon",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+        {"name": "button1","type": "image","url": "assets/button.png"},
+		{
+			"name": "description",
+			"type": "json",
+			"url": "config/description.json"
+		},
+        {"name": "bghouse1","type": "image","url": "assets/house1.png"},
+        {"name": "bghouse2","type": "image","url": "assets/house2.png"},
+        {"name": "button1","type": "image","url": "assets/button.png"},
+		{"name": "sword","type": "sound","url": "assets/sword3.mp3"},
+        {"name": "sword2","type": "sound","url": "assets/sword.mp3"},
+        {"name": "bgGirl","type": "image","url": "assets/bgGirl.png"},
+        {"name": "fightBG","type": "image","url": "assets/fightBG.png"}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "bgImage,egretIcon,button1,sword,monster,bghouse1,bghouse2,button1,sword,sword2,bgGirl,fightBG"
+		}
+	]
+}

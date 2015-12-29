@@ -1,6 +1,5 @@
 {
 	"close":false,
-	"projectType":"egret",
 	"resourcePlugin":
 	{
 		"configs":[
@@ -12,6 +11,11 @@
 		"library":
 		{
 			"children":[
+			{
+				"isFolder":false,
+				"key":"bgGirl",
+				"name":"bgGirl"
+			},
 			{
 				"isFolder":false,
 				"key":"bgImage",
@@ -29,13 +33,8 @@
 			},
 			{
 				"isFolder":false,
-				"key":"egretIcon",
-				"name":"egretIcon"
-			},
-			{
-				"isFolder":false,
-				"key":"bgGirl",
-				"name":"bgGirl"
+				"key":"button1",
+				"name":"button1"
 			}]
 		}
 	},

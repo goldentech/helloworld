@@ -15,11 +15,11 @@ class DataElement
         this.sectionContent = sectionContent;
         this.sectionName = sectionName;
     }
-    sectionContent;
-    sectionNum;
-    sectionLoc;
-    sectionCatagory;
-    sectionName;
+    sectionContent;//剧情内容
+    sectionNum;//剧情发生的顺序
+    sectionLoc;//剧情发生的地点（0,1,2,3,4,5）,需要下拉框
+    sectionCatagory;//剧情发生的世界，需要下拉框
+    sectionName;//剧情的章节名字
     
 }
 
