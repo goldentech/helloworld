@@ -167,6 +167,23 @@ declare module egret {
         constructor(movieClipData?: MovieClipData);
         /**
          * @private
+         */
+        $smoothing: boolean;
+        /**
+         * @language en_US
+         * Whether or not is smoothed when scaled.
+         * @version Egret 3.0
+         * @platform Web
+         */
+        /**
+         * @language zh_CN
+         * 控制在缩放时是否进行平滑处理。
+         * @version Egret 3.0
+         * @platform Web
+         */
+        smoothing: boolean;
+        /**
+         * @private
          *
          */
         $init(): void;
@@ -888,7 +905,7 @@ declare module egret {
          * @param actionsMode
          * @returns
          */
-        private setPosition(value);
+        private setPosition(value, actionsMode?);
         /**
          * @private
          *
@@ -2143,7 +2160,7 @@ declare module egret {
         private update(timeStamp);
         private callBackList;
         /**
-         * 注册帧回调事件，同一函数的重复监听会被忽略。
+         * 注册帧回调事件，同一函数的重复监听会被忽略。推荐使用 egret.startTick 替代此方法。
          * @method egret.Ticker#register
          * @param listener {Function} 帧回调函数,参数返回上一帧和这帧的间隔时间。示例：onEnterFrame(frameTime:number):void
          * @param thisObject {any} 帧回调函数的this对象
@@ -2154,7 +2171,7 @@ declare module egret {
          */
         register(listener: Function, thisObject: any, priority?: number): void;
         /**
-         * 取消侦听enterFrame事件
+         * 取消侦听enterFrame事件。推荐使用 egret.stopTick 替代此方法。
          * @method egret.Ticker#unregister
          * @param listener {Function} 事件侦听函数
          * @param thisObject {any} 侦听函数的this对象
@@ -2263,6 +2280,10 @@ declare module egret {
          * @platform Web,Native
          */
         static DEVICE_MOBILE: string;
+        /**
+         * @private
+         */
+        static _runtimeType: string;
         /**
          * @version Egret 2.4
          * @platform Web,Native

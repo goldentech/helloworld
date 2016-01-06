@@ -92,12 +92,18 @@ class Main extends egret.DisplayObjectContainer {
 //        this.stage.addChild(register);
         
         
-        var fightScene = new FightV1(this.stage.stageWidth,this.stage.stageHeight);
-        this.stage.addChild(fightScene);
+//        var fightScene = new FightStart(this.stage.stageWidth,this.stage.stageHeight);
+//        this.stage.addChild(fightScene);
+        
 //        egret.log("123");
-//        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
-//        newSim.name = "sim" + this.stageNum;
-//        this.stage.addChild(newSim);
+        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
+        newSim.name = "sim" + this.stageNum;
+        this.stage.addChild(newSim);
+        
+        
+//        var fightScene = new YourInput ();
+//        this.stage.addChild(fightScene);
+        
         
         
         

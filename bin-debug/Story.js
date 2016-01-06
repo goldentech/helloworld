@@ -6,7 +6,7 @@ var Story = (function () {
         this.lineCount = 0;
         this.lineEnd = false;
     }
-    var d = __define,c=Story;p=c.prototype;
+    var d = __define,c=Story,p=c.prototype;
     p.getLineByIndex = function (count) {
         return this.storyLine[count];
     };
@@ -31,4 +31,5 @@ var Story = (function () {
     };
     return Story;
 })();
-egret.registerClass(Story,"Story");
+egret.registerClass(Story,'Story');
+//# sourceMappingURL=Story.js.map

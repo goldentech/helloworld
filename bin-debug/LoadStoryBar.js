@@ -8,9 +8,16 @@ var LoadStroyBar = (function (_super) {
         this.sectionLoc = this.dataElement.sectionLoc;
         this.createStoryBar(x, y);
     }
-    var d = __define,c=LoadStroyBar;p=c.prototype;
+    var d = __define,c=LoadStroyBar,p=c.prototype;
     p.createStoryBar = function (x, y) {
-        var bg = new LoadBackGround(640, 1036, "bghouse1", false);
+        var simName;
+        if (this.sectionLoc == 0) {
+            simName = "bghouse2";
+        }
+        else {
+            simName = "sim" + this.sectionLoc;
+        }
+        var bg = new LoadBackGround(640, 1036, simName, false);
         bg.touchEnabled = true;
         bg.name = "startMap1";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this);
@@ -43,4 +50,5 @@ var LoadStroyBar = (function (_super) {
     };
     return LoadStroyBar;
 })(egret.Sprite);
-egret.registerClass(LoadStroyBar,"LoadStroyBar");
+egret.registerClass(LoadStroyBar,'LoadStroyBar');
+//# sourceMappingURL=LoadStoryBar.js.map

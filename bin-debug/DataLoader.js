@@ -11,10 +11,10 @@ var DataElement = (function () {
         this.sectionContent = sectionContent;
         this.sectionName = sectionName;
     }
-    var d = __define,c=DataElement;p=c.prototype;
+    var d = __define,c=DataElement,p=c.prototype;
     return DataElement;
 })();
-egret.registerClass(DataElement,"DataElement");
+egret.registerClass(DataElement,'DataElement');
 var DataLoader = (function () {
     function DataLoader(sectionCatagory, sectionNum) {
         this.sections = [];
@@ -27,7 +27,7 @@ var DataLoader = (function () {
         this.sectionLoc = this.sections[sectionCatagory][sectionNum].sectionLoc;
         this.sectionName = this.sections[sectionCatagory][sectionNum].sectionName;
     }
-    var d = __define,c=DataLoader;p=c.prototype;
+    var d = __define,c=DataLoader,p=c.prototype;
     p.allDataLoad = function () {
         var story = "清晨的阳光透过绿竹编制的窗帘射入屋子.我用力摇头，试图把自己从昨夜噩梦的影响中驱散.呼出胸口的一股浊气，我习惯性的把目光转向北面.那里挂着我不想看见到，却又每天忍不住要看的东西.元历三百一十三年八月十二日，鲜红的字迹像血一样挂在日历上.还有，最后三天";
         var name = "序章，新的开始";
@@ -88,4 +88,5 @@ var DataLoader = (function () {
     };
     return DataLoader;
 })();
-egret.registerClass(DataLoader,"DataLoader");
+egret.registerClass(DataLoader,'DataLoader');
+//# sourceMappingURL=DataLoader.js.map

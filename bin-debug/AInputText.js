@@ -10,7 +10,7 @@ var AInputText = (function (_super) {
         _super.call(this);
         this.creatInputText(tagName, initContent, y);
     }
-    var d = __define,c=AInputText;p=c.prototype;
+    var d = __define,c=AInputText,p=c.prototype;
     p.creatInputText = function (tagName, initContent, y) {
         //USER NAME AND USER INPUT
         var tag = new egret.TextField();
@@ -38,4 +38,5 @@ var AInputText = (function (_super) {
     };
     return AInputText;
 })(egret.Sprite);
-egret.registerClass(AInputText,"AInputText");
+egret.registerClass(AInputText,'AInputText');
+//# sourceMappingURL=AInputText.js.map

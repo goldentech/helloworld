@@ -25,9 +25,16 @@ class LoadStroyBar extends egret.Sprite {
     public sectionLoc:number;
     
     private createStoryBar(x,y):void {
-        
-        
-        var bg: LoadBackGround = new LoadBackGround(640,1036,"bghouse1",false);
+        var simName; 
+        if(this.sectionLoc == 0)
+        {
+            simName = "bghouse2";
+        }
+        else
+        {
+            simName = "sim" + this.sectionLoc;
+        }
+        var bg: LoadBackGround = new LoadBackGround(640,1036,simName,false);
         bg.touchEnabled = true; bg.name = "startMap1";
         bg.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,this);
                         

@@ -4,7 +4,7 @@ var LoadBackGround = (function (_super) {
         _super.call(this);
         this.createBackGround(simWidth, simHeight, sourceName, ifDetail);
     }
-    var d = __define,c=LoadBackGround;p=c.prototype;
+    var d = __define,c=LoadBackGround,p=c.prototype;
     p.createBackGround = function (simWidth, simHeight, sourceName, ifDetail) {
         this.bg = new egret.Bitmap(RES.getRes(sourceName));
         this.bg.x = 0;
@@ -19,4 +19,5 @@ var LoadBackGround = (function (_super) {
     };
     return LoadBackGround;
 })(egret.Sprite);
-egret.registerClass(LoadBackGround,"LoadBackGround");
+egret.registerClass(LoadBackGround,'LoadBackGround');
+//# sourceMappingURL=LoadBackGround.js.map

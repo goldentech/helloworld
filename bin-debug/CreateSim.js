@@ -18,7 +18,7 @@ var CreateSim = (function (_super) {
                 break;
         }
     }
-    var d = __define,c=CreateSim;p=c.prototype;
+    var d = __define,c=CreateSim,p=c.prototype;
     p.startSim = function (simWidth, simHeight) {
         // this.sound = RES.getRes("sword2"); 
         this.soundChannel = this.sound.play();
@@ -59,7 +59,7 @@ var CreateSim = (function (_super) {
     };
     p.detailSim = function (simWidth, simHeight, touchHouse) {
         //        this.unloadMapSim();
-        this.soundChannel.stop();
+        //this.soundChannel.stop();
         if (this.episode < 13) {
             var storyBar = new LoadStroyBar(60, 420, 1, this.episode);
             storyBar.name = "storyBar2";
@@ -69,18 +69,39 @@ var CreateSim = (function (_super) {
             }
             else {
                 storyBar.visible = false;
-                var bg = new LoadBackGround(640, 1036, "bghouse1", false);
+                var bg = new LoadBackGround(640, 1036, "sim" + touchHouse.replace("h", ""), false);
                 bg.touchEnabled = true;
                 bg.name = "startMap2";
                 this.addChild(bg);
             }
             this.addChild(storyBar);
         }
-        var returnButton = new LoadOneBuild(6, 450, 575, "bghouse2", "离开");
+        var returnButton = new LoadOneBuild(7, 450, 575, "bgImage", "离 开");
         returnButton.name = "returnMap";
         returnButton.touchEnabled = true;
         returnButton.addEventListener(egret.TouchEvent.TOUCH_TAP, this.returnToMap, this);
         this.addChild(returnButton);
+        if (touchHouse == "h1") {
+            var monster2 = new egret.Bitmap(RES.getRes("monster"));
+            monster2.x = 0;
+            monster2.y = 0;
+            var fightScene = new FightStart(this.stage.stageWidth, this.stage.stageHeight);
+            var self = this;
+            monster2.touchEnabled = true;
+            monster2.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                fightScene = new FightStart(this.stage.stageWidth, this.stage.stageHeight);
+                self.stage.addChild(fightScene);
+            }, this);
+            this.addChild(monster2);
+            var moveName = new egret.TextField;
+            moveName.text = "打木人";
+            moveName.x = 35;
+            moveName.y = 170;
+            moveName.size = 32;
+            moveName.textColor = 0x00EE00;
+            moveName.bold = true;
+            this.addChild(moveName);
+        }
     };
     p.unLoadDetailSim = function () {
         this.removeChild(this.getChildByName("storyBar2"));
@@ -88,6 +109,11 @@ var CreateSim = (function (_super) {
     };
     // return to main map sim from  detail sim
     p.returnToMap = function (evt) {
+        if (this.getChildByName("storyBar2").storyEnd) {
+        }
+        else if (this.getChildByName("storyBar2").visible) {
+            this.episode = this.episode - 1;
+        }
         this.unLoadDetailSim();
         this.mapSim(this.simWidth, this.simHeight);
     };
@@ -104,11 +130,12 @@ var CreateSim = (function (_super) {
     p.startMap = function (evt) {
         if (this.getChildByName("storyBar1").storyEnd) {
             this.unloadSingleSim();
-            this.sound = RES.getRes("sword");
-            this.soundChannel = this.sound.play(0, 1);
+            this.sound = RES.getRes("sword2");
+            this.soundChannel = this.sound.play();
             this.mapSim(this.simWidth, this.simHeight);
         }
     };
     return CreateSim;
 })(egret.Sprite);
-egret.registerClass(CreateSim,"CreateSim");
+egret.registerClass(CreateSim,'CreateSim');
+//# sourceMappingURL=CreateSim.js.map

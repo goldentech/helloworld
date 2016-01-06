@@ -11,7 +11,7 @@ var ChatSocket = (function (_super) {
         _super.call(this);
         this.startChat(simWidth, simHeight);
     }
-    var d = __define,c=ChatSocket;p=c.prototype;
+    var d = __define,c=ChatSocket,p=c.prototype;
     p.startChat = function (simWidth, simHeight) {
         var sky = this.createBitmapByName("bgImage");
         // this.storyLine.addEventListener(egret.TouchEvent.TOUCH_TAP,this.touchHandler,this);
@@ -135,4 +135,5 @@ var ChatSocket = (function (_super) {
     };
     return ChatSocket;
 })(egret.Sprite);
-egret.registerClass(ChatSocket,"ChatSocket");
+egret.registerClass(ChatSocket,'ChatSocket');
+//# sourceMappingURL=ChatSocket.js.map

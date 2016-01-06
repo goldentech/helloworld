@@ -4,7 +4,7 @@ var NewPlayer = (function (_super) {
         _super.call(this);
         this.registerNew(simWidth, simHeight);
     }
-    var d = __define,c=NewPlayer;p=c.prototype;
+    var d = __define,c=NewPlayer,p=c.prototype;
     p.registerNew = function (simWidth, simHeight) {
         //设定屏幕背景
         var sky = this.createBitmapByName("bgImage");
@@ -85,4 +85,5 @@ var NewPlayer = (function (_super) {
     };
     return NewPlayer;
 })(egret.Sprite);
-egret.registerClass(NewPlayer,"NewPlayer");
+egret.registerClass(NewPlayer,'NewPlayer');
+//# sourceMappingURL=NewPlayer.js.map

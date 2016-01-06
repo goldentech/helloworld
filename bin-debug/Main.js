@@ -5,7 +5,7 @@ var Main = (function (_super) {
         this.stageNum = 1;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
-    var d = __define,c=Main;p=c.prototype;
+    var d = __define,c=Main,p=c.prototype;
     p.onAddToStage = function (event) {
         //设置加载进度界面
         //Config to load process interface
@@ -72,13 +72,16 @@ var Main = (function (_super) {
         //        this.stage.addChild(chat);
         //        var register = new NewPlayer(this.stage.stageWidth,this.stage.stageHeight);
         //        this.stage.addChild(register);
-        var fightScene = new FightV1(this.stage.stageWidth, this.stage.stageHeight);
-        this.stage.addChild(fightScene);
+        //        var fightScene = new FightStart(this.stage.stageWidth,this.stage.stageHeight);
+        //        this.stage.addChild(fightScene);
         //        egret.log("123");
-        //        var newSim: CreateSim = new CreateSim(this.stageNum,this.stage.stageWidth,this.stage.stageHeight);
-        //        newSim.name = "sim" + this.stageNum;
-        //        this.stage.addChild(newSim);
+        var newSim = new CreateSim(this.stageNum, this.stage.stageWidth, this.stage.stageHeight);
+        newSim.name = "sim" + this.stageNum;
+        this.stage.addChild(newSim);
+        //        var fightScene = new YourInput ();
+        //        this.stage.addChild(fightScene);
     };
     return Main;
 })(egret.DisplayObjectContainer);
-egret.registerClass(Main,"Main");
+egret.registerClass(Main,'Main');
+//# sourceMappingURL=Main.js.map

@@ -5,7 +5,7 @@ var MainBack = (function (_super) {
         this.stageNum = 1;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
-    var d = __define,c=MainBack;p=c.prototype;
+    var d = __define,c=MainBack,p=c.prototype;
     p.onAddToStage = function (event) {
         //设置加载进度界面
         //Config to load process interface
@@ -90,4 +90,5 @@ var MainBack = (function (_super) {
     };
     return MainBack;
 })(egret.DisplayObjectContainer);
-egret.registerClass(MainBack,"MainBack");
+egret.registerClass(MainBack,'MainBack');
+//# sourceMappingURL=MainBackup.js.map

@@ -98,13 +98,14 @@ class CreateSim extends egret.Sprite {
     }
     
     
-    private detailSim(simWidth,simHeight,touchHouse)
+    private detailSim(simWidth,simHeight,touchHouse:String)
     {
        
 //        this.unloadMapSim();
         
-        this.soundChannel.stop();
-            
+        //this.soundChannel.stop();
+        
+        
         
         if(this.episode<13)
         {
@@ -120,7 +121,8 @@ class CreateSim extends egret.Sprite {
             else
             {
                 storyBar.visible = false;
-                var bg: LoadBackGround = new LoadBackGround(640,1036,"bghouse1",false);
+                var bg: LoadBackGround = new LoadBackGround(640,1036,"sim" + touchHouse.replace("h",""),false);
+                
                 bg.touchEnabled = true; bg.name = "startMap2";
             
                                         
@@ -129,11 +131,40 @@ class CreateSim extends egret.Sprite {
             this.addChild(storyBar);
         }
         
-        var returnButton: LoadOneBuild = new LoadOneBuild(6, 450, 575 ,"bghouse2","离开");
+        
+        
+        
+        var returnButton: LoadOneBuild = new LoadOneBuild(7,450,575,"bgImage","离 开");
         returnButton.name = "returnMap";
         returnButton.touchEnabled = true;
         returnButton.addEventListener(egret.TouchEvent.TOUCH_TAP,this.returnToMap,this);
         this.addChild(returnButton);
+        
+        if(touchHouse == "h1") {
+            var monster2: egret.Bitmap = new egret.Bitmap(RES.getRes("monster"));
+            monster2.x = 0;
+            monster2.y = 0;
+            
+          var fightScene = new FightStart(this.stage.stageWidth,this.stage.stageHeight);
+          var self = this;
+          monster2.touchEnabled = true;
+            monster2.addEventListener(egret.TouchEvent.TOUCH_TAP,
+                function() {
+                    fightScene = new FightStart(this.stage.stageWidth,this.stage.stageHeight);
+                    self.stage.addChild(fightScene);
+                }
+                    ,this);
+                
+            this.addChild(monster2);
+
+            var moveName = new egret.TextField;
+            moveName.text = "打木人"; moveName.x = 35; moveName.y = 170;
+            moveName.size = 32;
+            moveName.textColor = 0x00EE00;
+            moveName.bold = true;
+            this.addChild(moveName);
+
+        }
         
     }
         
@@ -151,6 +182,15 @@ class CreateSim extends egret.Sprite {
     // return to main map sim from  detail sim
     private returnToMap(evt: egret.TouchEvent)
     {
+        
+        
+        if((<LoadStroyBar>this.getChildByName("storyBar2")).storyEnd) {
+        }
+        else if((<LoadStroyBar>this.getChildByName("storyBar2")).visible)
+        {
+            this.episode = this.episode - 1;
+            
+        }
         this.unLoadDetailSim();
         this.mapSim(this.simWidth,this.simHeight);
     }
@@ -174,8 +214,8 @@ class CreateSim extends egret.Sprite {
         if((<LoadStroyBar>this.getChildByName("storyBar1")).storyEnd)
         {
             this.unloadSingleSim();
-            this.sound = RES.getRes("sword"); 
-            this.soundChannel = this.sound.play(0,1);
+            this.sound = RES.getRes("sword2"); 
+            this.soundChannel = this.sound.play();
             this.mapSim(this.simWidth,this.simHeight);
         }
     }
